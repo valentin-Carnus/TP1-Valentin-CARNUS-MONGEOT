@@ -1,0 +1,84 @@
+"exo 1"
+getwd() ' répertoire session Rstudio'
+
+
+bodies_karts <- read.csv("L:/BUT/SD/Promo 2025/vcarnusmongeot/R/Dataset/bodies_karts.csv", header = TRUE, dec = ",", sep = ";")
+drivers <- read.csv("L:/BUT/SD/Promo 2025/vcarnusmongeot/R/Dataset/drivers.csv", header = TRUE, dec = ",", sep = ";")
+gliders <- read.csv("L:/BUT/SD/Promo 2025/vcarnusmongeot/R/Dataset/gliders.csv", header = TRUE, dec = ".", sep = "|")
+tires <- read.csv("L:/BUT/SD/Promo 2025/vcarnusmongeot/R/Dataset/tires.csv", header = TRUE, dec = ",", sep = "\t")
+"ne pas oublier de changer les \ en /"
+
+
+
+
+dim(bodies_karts)
+dim(tires)
+dim(gliders)
+dim(drivers)
+
+"EXO 2"
+
+summary(bodies_karts)
+summary(tires)
+summary(gliders)
+summary(drivers)
+
+
+plot(x = drivers$Weight,
+     y = drivers$Acceleration, 
+     main = "Drivers : Weight / Acceleration") "Plus le poids augmente plus l'acceleration diminue donc c'est liée"
+
+covXY = cov(x = drivers$Weight,
+            y = drivers$Acceleration)
+sX = sd(drivers$Weight)
+sY = sd(drivers$Acceleration)
+print(covXY / (sX*sY)) "FAIT LE PLOT A LA MAIN"
+
+coefCorr = cor(x = drivers$Weight,"coefficient de détermination"
+               y = drivers$Acceleration)
+coefDeter = coefCorr^2
+print(coefDeter)
+
+
+matriceCor = cor(drivers[ , - 1])
+matriceCor = round(matriceCor , 2)
+View(matriceCor)
+"le poids explique l'acceleration a 90%"
+
+install.packages("corrplot")
+
+library(corrplot)
+corrplot(matriceCor, method="circle") "le resutat crée donc un graphique qui montre tout les correlations entre variables de toutes les modalités"
+
+"exo 3"
+
+resultat = drivers[ , c("Driver" , "Weight")]
+View(resultat)
+
+resultat = drivers[ 1:10 , c("Driver" , "Acceleration")]
+View(resultat)
+
+resultat = drivers[ c(32,3,12) , ]
+View(resultat)
+#Les lignes sont dans l'ordre défini par le vecteur.
+
+rang = order(drivers$Weight)
+resultat = drivers[ rang  , c("Driver", "Weight") ]
+View(resultat)
+rang = order(drivers$Acceleration, decreasing = TRUE)
+resultat = drivers[ rang  , c("Driver", "Acceleration") ]
+View(resultat)
+rang = order(drivers$Acceleration, drivers$Weight, decreasing = c(TRUE,FALSE))
+resultat = drivers[ rang  , c("Driver", "Acceleration","Weight") ]
+View(resultat)
+
+
+help(subset)
+topDriver = subset(x = drivers,
+                   subset = Acceleration == max(Acceleration), 
+                   select = c("Driver","Acceleration"))
+
+
+topGlider = subset(x = gliders,
+                   subset = Acceleration == max(Acceleration), 
+                   select = c("Glider","Acceleration"))
