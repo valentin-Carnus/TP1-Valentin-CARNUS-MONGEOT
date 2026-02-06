@@ -1,0 +1,57 @@
+fao<-read.csv("L:/BUT/SD/Promo 2025/vcarnusmongeot/Programmation/R/Dataset/fao.csv", sep=";", dec=",", header = TRUE)
+nrow(fao)
+mean(fao$Dispo_alim, na.rm=TRUE)
+sum(fao$Population, na.rm=TRUE)
+median(fao$Prod_viande, na.rm = TRUE)
+quantile(fao$Dispo_alim)
+quantile(fao$Import_viande, seq(0,1,0.01))
+
+rang = order(fao$Population)
+resultat = head(fao[ rang , ], n = 5)
+View(resultat)
+
+rang = order(fao$Prod_viande, decreasing = TRUE)
+resultat = head(fao[ rang , ], n = 5)
+View(resultat)
+
+rang = order(fao$Prod_viande, decreasing = TRUE)
+resultat = head(fao[ rang , ], n = 5)
+View(resultat)
+
+rang = order(fao$Import_viande, decreasing = TRUE)
+resultat = head(fao[ rang , ], n = 5)
+View(resultat)
+
+resultat = subset(fao, Dispo_alim>=2300)
+View(resultat)
+resultat = subset(fao, Nom %in% c("France","Belgique"))
+View(resultat)
+
+fao$Part_export<-fao$Export_viande/fao$Prod_viande
+
+
+fao$Dispo_alim_pays<-fao$Dispo_alim*fao$Population
+print(mean(fao$Dispo_alim_pays))
+
+write.table(x = fao, file = "ExportTp2.csv")
+
+dispo_alim_mondiale = sum(df$Dispo_alim_pays, na.rm=TRUE)
+dispo_alim_mondiale
+
+dispo_alim_mondiale/2300
+
+plot(x = fao$Prod_viande,
+     y = fao$Export_viande, 
+     main = "Pays : Prod_viande / Export_viande")
+
+cor(x = fao$Prod_viande,
+    y = fao$Export_viande)
+
+matriceCor = cor(fao[ , - 1] , use = "complete.obs")
+matriceCor = round(matriceCor , 2)
+View(matriceCor)
+
+
+install.packages("corrplot")
+library(corrplot) 
+corrplot(matriceCor, method="circle")
