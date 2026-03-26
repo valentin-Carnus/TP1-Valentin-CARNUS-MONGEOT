@@ -1,0 +1,54 @@
+# Exercice 1
+a <- 10
+b <- 5
+resultat <- a * b
+print(resultat)
+A <- 7.2
+B <- 1.01
+resultat <- A + B
+print(resultat)
+rm(a, b, A, B, resultat)
+
+# Exercice 2
+1:10
+seq(from = 1, to = 10, by = 1)
+seq(from = 2, to = 20, by = 2)
+seq(from = 0, to = -5, by = -1)
+seq(from = 5, to = 50, by = 5)
+10:1
+rep(x = 1, times = 5)
+rep(x = c(1, 2, 3), times = 3)
+rep(x = c(1, 5), times = 3)
+rm(list = ls())
+
+# Exercice 3
+simulation <- sample(x = c(1,2,3,4,5,6), size = 5, replace = TRUE)
+print(simulation)
+simulation <- sample(x = c(1,2,3,4,5,6), size = 12, replace = TRUE)
+print(simulation)
+simulation <- sample(x = c(1,2,3,4,5,6), size = 12, replace = FALSE)
+# Erreur car on ne peut pas tirer 12 éléments sans remise dans un ensemble de 6.
+simulation <- sample(x = c(1,2,3,4,5,6), size = 100, replace = TRUE)
+table(simulation)
+prop.table( table(simulation) )
+simulation <- sample(x = c(1,2,3,4,5,6), size = 100000, replace = TRUE)
+frequence <- prop.table( table(simulation) )
+sort(frequence, decreasing = TRUE)
+
+# Exercice 4
+notes <- c(12, 15, 8, 10, 18)
+print(notes)
+class(notes)
+notes[3]
+notes[1] <- 14
+print(notes)
+mean(notes)
+median(notes)
+range(notes)
+sd(notes)
+quantile(notes)
+length(notes[notes >= 10])
+notes[notes < 10]
+subset(x = notes, subset = notes < 10)
+notes[notes > 15] <- 15
+print(notes)
